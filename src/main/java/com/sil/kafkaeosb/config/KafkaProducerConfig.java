@@ -6,9 +6,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class KafkaProducerConfig {
+
     @Bean
     public NewTopic createNewTopic()
     {
          return new NewTopic("sdlcpro",5,(short) 1);
     }
+    @Bean
+    public NewTopic createNewTopic2()
+    {
+        return new NewTopic("user-event",5,(short) 1);
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.sil.kafkaeosb.controllers;
 
+import com.sil.kafkaeosb.events.UserEventRecord;
 import com.sil.kafkaeosb.kafkaService.KafkaMessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,13 @@ public class KafkaController {
     public ResponseEntity<?>publishMessage(@PathVariable String message)
     {
         try{
-            for(int i=0;i<=10;i++)
+            for(int i=0;i<1;i++)
             {
-                System.out.println("thi si serial number of call kafka"+i);
-                kafkaMessagePublisher.sendMessageToKafkaTopic(message+" "+i);
+                UserEventRecord userEventRecord = new UserEventRecord(
+                        "abdullah al mamun",
+                        "abc@gmail.com",
+                        "Notify");
+                kafkaMessagePublisher.sendMessageToKafkaTopic(userEventRecord);
 
             }
             return ResponseEntity.ok("message send successfully ");
