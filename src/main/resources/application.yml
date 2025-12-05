@@ -1,5 +1,9 @@
 server:
   port: 9191
+app:
+  encryption:
+    key: "1234567890123456"   # Must be 16, 24 or 32 chars for AES
+
 spring:
   kafka:
     bootstrap-servers: localhost:9092
@@ -11,6 +15,7 @@ spring:
 
     consumer:
       group-id: my-group21
+      auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:

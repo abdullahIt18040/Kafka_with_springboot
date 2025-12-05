@@ -17,6 +17,11 @@ public class KafkaProducerConfig {
     {
         return new NewTopic("user-event",5,(short) 1);
     }
+    @Bean
+    public NewTopic createNewTopic3()
+    {
+        return new NewTopic("ordertopic",5,(short) 1);
+    }
 
 
 }
