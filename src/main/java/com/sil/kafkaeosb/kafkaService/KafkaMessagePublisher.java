@@ -19,7 +19,7 @@ public class KafkaMessagePublisher {
     public void sendDataToKafkafororderrecord(OrderRecord event)
     {
         CompletableFuture<SendResult<String, OrderRecord>> future=
-                orderRecordKafkaTemplate.send("ordertopic",event);
+                orderRecordKafkaTemplate.send("ordereventtest",event);
         future.whenComplete((result,err)->{
             if (err ==null)
             {
