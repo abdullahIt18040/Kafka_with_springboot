@@ -21,4 +21,7 @@ spring:
       properties:
         spring.json.value.default.type: com.sil.kafkaeosb.events.UserEventRecord
         spring.json.trusted.packages: "*"
-
+logging:
+  level:
+    org.springframework.kafka: TRACE
+    org.apache.kafka: TRACE

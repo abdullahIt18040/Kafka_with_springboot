@@ -3,6 +3,8 @@ package com.sil.kafkaeosb.kafkaService;
 import com.sil.kafkaeosb.events.MyEvent;
 import com.sil.kafkaeosb.events.OrderRecord;
 import com.sil.kafkaeosb.events.UserEventRecord;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -18,22 +20,31 @@ public class KafkaMessagePublisher {
 
     public void sendDataToKafkafororderrecord(OrderRecord event)
     {
-        CompletableFuture<SendResult<String, OrderRecord>> future=
+        CompletableFuture<SendResult<String, OrderRecord>> cf=
                 orderRecordKafkaTemplate.send("ordereventtest",event);
-        future.whenComplete((result,err)->{
-            if (err ==null)
-            {
+         cf.thenAccept(result->{
+             ProducerRecord record = result.getProducerRecord();
+             RecordMetadata metadata = result.getRecordMetadata();
+             System.out.println(Thread.currentThread().getName()+ "::  "+result.toString());
+         });
 
-                System.out.println("message produce from " +
-                        "producer myevent  send " +
-                        "successfully00000000000"+result.getRecordMetadata().offset()
-                );
-            }else {
 
-                System.out.println("message not send ");
-            }
+        System.out.println("this is kafka producer send data done !");
 
-        });
+//        cf.whenComplete((result,err)->{
+//            if (err ==null)
+//            {
+//
+//                System.out.println("message produce from " +
+//                        "producer myevent  send " +
+//                        "successfully00000000000"+result.getRecordMetadata().offset()
+//                );
+//            }else {
+//
+//                System.out.println("message not send ");
+//            }
+
+//        });
 
     }
 
